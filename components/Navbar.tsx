@@ -1,15 +1,37 @@
-import React from 'react'
-import styles from './Navbar.module.css' 
-import { ActiveLink } from './ActiveLink'
+import React from 'react';
+import styles from './Navbar.module.css';
+import { ActiveLink } from './ActiveLink';
 
+const menuItems = [
+  {
+    text: 'Home',
+    href: '/',
+  },
+  {
+    text: 'People',
+    href: '/people',
+  },
+  {
+    text: 'Films',
+    href: '/films',
+  },
+  {
+    text: 'Planets',
+    href: '/planets',
+  },
+  {
+    text: 'Starships',
+    href: '/starships',
+  },
+];
 export const Navbar = () => {
   return (
     <nav className={styles['menu-container']}>
-        <ActiveLink text="Home" href="/"></ActiveLink>
-        <ActiveLink text="People" href="/people"></ActiveLink>
-        <ActiveLink text="Planets" href="/planets"></ActiveLink>
-        <ActiveLink text="Films" href="/films"></ActiveLink>
-        <ActiveLink text="Starships" href="/starships"></ActiveLink>
+      {
+      menuItems.map((item) => (
+        <ActiveLink key={item.href} text={item.text} href={item.href}></ActiveLink>
+      ))
+      }
     </nav>
-  )
-}
+  );
+};

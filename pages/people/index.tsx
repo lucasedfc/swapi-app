@@ -1,11 +1,12 @@
 import Link from 'next/link'
 import { MainLayout } from '@/components/layouts/MainLayout'
+import { DarkLayout } from '@/components/layouts/DarkLayout'
+import { ReactElement } from 'react'
 
 
 export default function PeoplePage() {
   return (
-    <MainLayout>
-
+    <>
       <h1 className={'title'}>
              <Link href="/">Go To Home Page</Link>
       </h1>
@@ -13,6 +14,18 @@ export default function PeoplePage() {
       <p className={'description'}>
         People Page
      </p>
-    </MainLayout>      
+
+    </>      
+  )
+}
+
+PeoplePage.getLayout = function getLayout(page: ReactElement) {
+  
+  return (
+    <MainLayout>
+      <DarkLayout>
+        {page}
+      </DarkLayout>
+    </MainLayout>
   )
 }

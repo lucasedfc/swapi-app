@@ -1,13 +1,17 @@
 import Link from 'next/link'
 import { useRouter } from 'next/router'
-import React from 'react'
+import React, { FC } from 'react'
 
 const style = {
     color: 'red',
     textDecoration: 'underline',
     
 }
-export const ActiveLink = ({ text, href }) => {
+interface Props {
+    text: string,
+    href: string
+}
+export const ActiveLink: FC<Props> = ({ text, href }) => {
 
     const { asPath } = useRouter();
 

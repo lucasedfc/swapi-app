@@ -1,23 +1,22 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { Container, Grid, TextField, Button } from '@mui/material';
 import Character from '@/components/Character/Character';
 import { MainLayout } from '@/components/layouts/MainLayout';
 import StarWarsPeople from '@/components/People/people';
 import { LoadingScreen } from '@/components/Loading/Loading';
-import { StartData } from './data';
+import { StartData } from '../../components/People/data';
 
-const Home = () => {
+const PeoplePage = () => {
   const [formData, setFormData] = useState({
     characterIdValue: '',
     characterIdError: '',
     isCharacterIdValid: false,
   });
-  const [starWarsCharacter, setStarWarsCharacter] = useState(StartData);
+  const [starWarsCharacter, setStarWarsCharacter] = useState<any>(StartData);
   const [starWarsPeople, setStarWarsPeople] = useState(null);
 
-
-
   const getStarWarsPeople = async () => {
+    
     setStarWarsPeople(null);
     setStarWarsCharacter(null);
     try {
@@ -65,10 +64,7 @@ const Home = () => {
     return formData.isCharacterIdValid;
   };
 
-  /**
-   * Validates the entered star wars character id.
-   * @param {Object} e - Event object.
-   */
+
   const validate = (e: any) => {
     const isNumberCorrect = RegExp(/^[1-9]\d*$/).test(e.target.value);
     if (e.target.value === '' || e.target.value === null) {
@@ -83,10 +79,6 @@ const Home = () => {
     }
   };
 
-  /**
-   * Called when the data in the form changes. (i.e., when the character id changes).
-   * @param {Object} e - Event object.
-   */
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     validate(e);
     setFormData({
@@ -95,10 +87,6 @@ const Home = () => {
     });
   };
 
-  /**
-   * Submits the form.
-   * @param {Object} e - Event object.
-   */
   const submit = (e: React.FormEvent) => {
     e.preventDefault();
     if (validateFormData()) {
@@ -186,4 +174,4 @@ const Home = () => {
   );
 };
 
-export default Home;
+export default PeoplePage;

@@ -6,7 +6,7 @@ export default function Home() {
   return (
    <MainLayout>
      <h1 className={'title'}>
-          <Link href="/people">Home Page</Link>
+          <Link href="/">Home Page</Link>
     </h1>
    </MainLayout> 
   )

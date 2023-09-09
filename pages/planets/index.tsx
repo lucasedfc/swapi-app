@@ -100,7 +100,7 @@ export default function PlanetsPage() {
   };
 
   return (
-    <MainLayout>
+    <MainLayout title={'Planets'}>
       <Container>
         <form
           onSubmit={submit}
@@ -161,7 +161,7 @@ export default function PlanetsPage() {
             ''
             )}
         {(starWarsPlanet !== null) ? (
-            <PlanetDetail planet={starWarsPlanet} />
+            <PlanetDetail {...starWarsPlanet} />
             ) : (
                 ''
 

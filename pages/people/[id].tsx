@@ -1,6 +1,6 @@
 import React from "react";
 import { Link, Button } from "@mui/material";
-import StarWarsCharacter from "@/components/People/Character";
+import SWCharacter from "@/components/People/Character";
 
 const CharacterInfo = ({ character }: any) => {
     return (
@@ -13,7 +13,7 @@ const CharacterInfo = ({ character }: any) => {
                 </Link>
             </p> 
         
-            <StarWarsCharacter starWarsCharacter={character} />
+            <SWCharacter starWarsCharacter={character} />
             
         </>
     );

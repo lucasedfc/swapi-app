@@ -1,7 +1,7 @@
 import React from "react";
 import { Grid, Typography, Card, CardContent, CardMedia, List, ListItem, ListItemText } from "@mui/material";
 
-const CharacterDetail = ({character}: any) => {
+const CharacterInfo = ({character}: any) => {
     
     const STAR_WARS_BANNER = "https://wallpaperaccess.com/full/496873.jpg";
 
@@ -66,4 +66,4 @@ const CharacterDetail = ({character}: any) => {
     );
 };
 
-export default CharacterDetail;
+export default CharacterInfo;

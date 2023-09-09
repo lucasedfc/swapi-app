@@ -100,7 +100,7 @@ export default function StarshipPage() {
   };
 
   return (
-    <MainLayout>
+    <MainLayout title={'Starships'}>
       <Container>
         <form
           onSubmit={submit}

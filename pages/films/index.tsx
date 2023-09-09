@@ -16,11 +16,14 @@ export default function FilmsPage() {
   const [starWarsFilm, setStarWarsFilm] = useState<any>(null);
   const [starWarsFilms, setStarWarsFilms] = useState(null);
   const [isLoading, setLoading] = useState(false);
+  
 
   const getStarWarsFilms = async ( ) => {    
     setStarWarsFilm(null);
     setStarWarsFilms(null);
     setLoading(true);
+    // disable list all button
+    
     try {
       const response = await fetch(
         `https://swapi-nest.cyclic.cloud/api/films`
@@ -100,7 +103,7 @@ export default function FilmsPage() {
   };
 
   return (
-    <MainLayout>
+    <MainLayout title={'Films'}>
       <Container>
         <form
           onSubmit={submit}

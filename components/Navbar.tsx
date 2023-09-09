@@ -1,12 +1,11 @@
-import React, {  } from 'react';
+import React, { useState } from 'react';
 import styles from './Navbar.module.css';
 import { ActiveLink } from './ActiveLink';
+import MenuIcon from '@mui/icons-material/Menu';
+
 
 const menuItems = [
-  {
-    text: 'Home',
-    href: '/',
-  },
+
   {
     text: 'People',
     href: '/people',
@@ -26,15 +25,19 @@ const menuItems = [
 ];
 
 export const Navbar = () => {
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+  const toggleMenu = () => {
+    setIsMenuOpen(!isMenuOpen);
+  };
 
   return (
     <nav className={`${styles['menu-container']}`}>
-      <div className={styles['menu-toggle']}>
-        <span></span>
-        <span></span>
-        <span></span>
-      </div>
-      <ul className={styles['menu']}>
+      <button className={styles['menu-toggle']} onClick={toggleMenu}
+      style={{color: 'black'}}>
+        <MenuIcon />
+      </button>
+      <ul className={`${styles['menu']} ${isMenuOpen ? styles['open'] : ''}`}>
         {menuItems.map((item) => (
           <li key={item.href}>
             <ActiveLink text={item.text} href={item.href} />
@@ -42,9 +45,9 @@ export const Navbar = () => {
         ))}
       </ul>
       <section>
-    <div className="background stars"></div>
-    <div className="overlay"></div>
-  </section>
+        <div className="background stars"></div>
+        <div className="overlay"></div>
+      </section>
     </nav>
   );
 };

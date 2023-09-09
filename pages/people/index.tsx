@@ -98,7 +98,7 @@ const PeoplePage = () => {
   };
 
   return (
-    <MainLayout>
+    <MainLayout title={'People'}>
       <Container>
         <form
           onSubmit={submit}

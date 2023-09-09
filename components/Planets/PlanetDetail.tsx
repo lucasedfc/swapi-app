@@ -1,7 +1,8 @@
 import React from "react";
 import { Grid, Typography, Card, CardContent, CardMedia, List, ListItem, ListItemText } from "@mui/material";
+import { IPlanet } from "./interfaces/planets.interfaces";
 
-const PlanetDetail = ({planet}: any) => {
+const PlanetDetail = (planet: IPlanet) => {
     
     const STAR_WARS_BANNER = "https://wallpaperaccess.com/full/496873.jpg";
 

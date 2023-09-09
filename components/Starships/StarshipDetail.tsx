@@ -1,14 +1,15 @@
 import React from "react";
 import { Grid, Typography, Card, CardContent, CardMedia, List, ListItem, ListItemText } from "@mui/material";
 
-const PlanetsInfo = ({ starWarsPlanet: starWarsPlanet }: any) => {
+const StarshipDetail = ({starship}: any) => {
+    
     const STAR_WARS_BANNER = "https://wallpaperaccess.com/full/496873.jpg";
 
     return (
         <Card elevation={6} >
             <CardContent>
-                <Typography color={"primary"}  variant="h4" component="h1" sx={{ fontWeight: "bold" }}>{starWarsPlanet.name}</Typography>
-                <Typography variant="body2">Star Wars Planet</Typography>
+                <Typography color={"primary"}  variant="h4" component="h1" sx={{ fontWeight: "bold" }}>{starship.name}</Typography>
+                <Typography variant="body2">Star Wars Starship</Typography>
             </CardContent>
             <CardMedia
                 component="img"
@@ -21,27 +22,13 @@ const PlanetsInfo = ({ starWarsPlanet: starWarsPlanet }: any) => {
                         <Grid container spacing={2}>
                             <Grid item xs={6} sm={6} md={6} lg={6}>
                                 <ListItemText
-                                    primary={<Typography variant="body1" component="h2" sx={{ fontWeight: "bold" }}>population</Typography>}
-                                    secondary={<Typography variant="body2">{starWarsPlanet.population}</Typography>} />
+                                    primary={<Typography variant="body1" component="h2" sx={{ fontWeight: "bold" }}>Model</Typography>}
+                                    secondary={<Typography variant="body2">{starship.model}</Typography>} />
                             </Grid>
                             <Grid item xs={6} sm={6} md={6} lg={6}>
                                 <ListItemText
-                                    primary={<Typography variant="body1" component="h2" sx={{ fontWeight: "bold" }}>surface_water</Typography>}
-                                    secondary={<Typography variant="body2">{starWarsPlanet.surface_water}</Typography>} />
-                            </Grid>
-                        </Grid>
-                    </ListItem>
-                    <ListItem disablePadding>
-                        <Grid container spacing={2}>
-                            <Grid item xs={6} sm={6} md={6} lg={6}>
-                                <ListItemText
-                                    primary={<Typography variant="body1" component="h2" sx={{ fontWeight: "bold" }}>terrain</Typography>}
-                                    secondary={<Typography variant="body2">{starWarsPlanet.terrain}</Typography>} />
-                            </Grid>
-                            <Grid item xs={6} sm={6} md={6} lg={6}>
-                                <ListItemText
-                                    primary={<Typography variant="body1" component="h2" sx={{ fontWeight: "bold" }}>gravity</Typography>}
-                                    secondary={<Typography variant="body2">{starWarsPlanet.gravity}</Typography>} />
+                                    primary={<Typography variant="body1" component="h2" sx={{ fontWeight: "bold" }}>Manufacturer</Typography>}
+                                    secondary={<Typography variant="body2">{starship.manufacturer}</Typography>} />
                             </Grid>
                         </Grid>
                     </ListItem>
@@ -49,13 +36,27 @@ const PlanetsInfo = ({ starWarsPlanet: starWarsPlanet }: any) => {
                         <Grid container spacing={2}>
                             <Grid item xs={6} sm={6} md={6} lg={6}>
                                 <ListItemText
-                                    primary={<Typography variant="body1" component="h2" sx={{ fontWeight: "bold" }}>climate</Typography>}
-                                    secondary={<Typography variant="body2">{starWarsPlanet.climate}</Typography>} />
+                                    primary={<Typography variant="body1" component="h2" sx={{ fontWeight: "bold" }}>Max Speed</Typography>}
+                                    secondary={<Typography variant="body2">{starship.max_atmosphering_speed}</Typography>} />
                             </Grid>
                             <Grid item xs={6} sm={6} md={6} lg={6}>
                                 <ListItemText
-                                    primary={<Typography variant="body1" component="h2" sx={{ fontWeight: "bold" }}>orbital_period</Typography>}
-                                    secondary={<Typography variant="body2">{starWarsPlanet.orbital_period}</Typography>} />
+                                    primary={<Typography variant="body1" component="h2" sx={{ fontWeight: "bold" }}>Class</Typography>}
+                                    secondary={<Typography variant="body2">{starship.starship_class}</Typography>} />
+                            </Grid>
+                        </Grid>
+                    </ListItem>
+                    <ListItem disablePadding>
+                        <Grid container spacing={2}>
+                            <Grid item xs={6} sm={6} md={6} lg={6}>
+                                <ListItemText
+                                    primary={<Typography variant="body1" component="h2" sx={{ fontWeight: "bold" }}>cargo capacity</Typography>}
+                                    secondary={<Typography variant="body2">{starship.cargo_capacity}</Typography>} />
+                            </Grid>
+                            <Grid item xs={6} sm={6} md={6} lg={6}>
+                                <ListItemText
+                                    primary={<Typography variant="body1" component="h2" sx={{ fontWeight: "bold" }}>Cost in Credits</Typography>}
+                                    secondary={<Typography variant="body2">{starship.cost_in_credits}</Typography>} />
                             </Grid>
                         </Grid>
                     </ListItem>
@@ -65,4 +66,4 @@ const PlanetsInfo = ({ starWarsPlanet: starWarsPlanet }: any) => {
     );
 };
 
-export default PlanetsInfo;
+export default StarshipDetail;

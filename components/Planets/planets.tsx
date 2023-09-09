@@ -1,8 +1,10 @@
 import React from "react";
 import { Grid, Box } from "@mui/material";
-import PlanetCard from "./PlanetCard";
+import PlanetDetail from "./PlanetDetail";
 
 const StarWarsPlanets = ({ starWarsPlanets }: any) => {
+
+  
     
     return (
         // render every character from starWarsPlanet
@@ -10,7 +12,7 @@ const StarWarsPlanets = ({ starWarsPlanets }: any) => {
             {starWarsPlanets.map((planet: any) => (
                 <Grid item xs={12} sm={12} md={4} lg={4} key={planet.name}>
                 <Box>
-                  <PlanetCard  starWarsPlanet={planet} />
+                  <PlanetDetail  planet={planet} />
                 </Box>
               </Grid>
             ))}

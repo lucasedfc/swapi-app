@@ -2,9 +2,8 @@ import { MainLayout } from '@/components/layouts/MainLayout'
 import { useState } from 'react';
 import { Button, Grid, Container, TextField } from '@mui/material';
 import StarWarsPlanets from '@/components/Planets/planets';
-import PlanetCard from '@/components/Planets/PlanetCard';
-import { InitPlanet } from '../../components/Planets/data';
 import { LoadingScreen } from '@/components/Loading/Loading';
+import PlanetDetail from '@/components/Planets/PlanetDetail';
 
 
 export default function PlanetsPage() {
@@ -14,7 +13,7 @@ export default function PlanetsPage() {
     planetIdError: '',
     isplanetIdValid: false,
   });
-  const [starWarsPlanet, setStarWarsPlanet] = useState<any>(InitPlanet);
+  const [starWarsPlanet, setStarWarsPlanet] = useState<any>(null);
   const [starWarsPlanets, setStarWarsPlanets] = useState(null);
   const [isLoading, setLoading] = useState(false);
 
@@ -24,7 +23,7 @@ export default function PlanetsPage() {
     setLoading(true);
     try {
       const response = await fetch(
-        `https://swapi.dev/api/planets`
+        `https://swapi-nest.cyclic.cloud/api/planets`
       );
       setLoading(false);
       const payload = await response.json();
@@ -45,13 +44,14 @@ export default function PlanetsPage() {
     setLoading(true);
     try {
       const response = await fetch(
-        `https://swapi.dev/api/planets/${planetId}`
+        `https://swapi-nest.cyclic.cloud/api/planets/${planetId}`
       );
       const payload = await response.json();
       setLoading(false);
 
       setStarWarsPlanet(payload);
       if (payload && response.ok) {
+        setStarWarsPlanet(payload);
       } else {
         setFormData({
           ...formData,
@@ -166,7 +166,7 @@ export default function PlanetsPage() {
             ''
             )}
         {(starWarsPlanet !== null) ? (
-            <PlanetCard starWarsPlanet={starWarsPlanet} />
+            <PlanetDetail planet={starWarsPlanet} />
             ) : (
                 ''
 

@@ -1,10 +1,9 @@
 import React, { useState } from 'react';
 import { Container, Grid, TextField, Button } from '@mui/material';
-import Character from '@/components/Character/Character';
 import { MainLayout } from '@/components/layouts/MainLayout';
 import StarWarsPeople from '@/components/People/people';
 import { LoadingScreen } from '@/components/Loading/Loading';
-import { StartData } from '../../components/People/data';
+import SWCharacter from '@/components/People/Character';
 
 const PeoplePage = () => {
   const [formData, setFormData] = useState({
@@ -12,17 +11,20 @@ const PeoplePage = () => {
     characterIdError: '',
     isCharacterIdValid: false,
   });
-  const [starWarsCharacter, setStarWarsCharacter] = useState<any>(StartData);
+  const [starWarsCharacter, setStarWarsCharacter] = useState<any>(null);
   const [starWarsPeople, setStarWarsPeople] = useState(null);
+  const [isLoading, setLoading] = useState(false);
 
   const getStarWarsPeople = async () => {
     
     setStarWarsPeople(null);
     setStarWarsCharacter(null);
+    setLoading(true);
     try {
       const response = await fetch(
-        `https://swapi.dev/api/people`
+        `https://swapi-nest.cyclic.cloud/api/people`
       );
+      setLoading(false);
       const payload = await response.json();
 
       if (payload && response.ok) {
@@ -30,16 +32,19 @@ const PeoplePage = () => {
         
       }
     } catch (error: any) {
+      setLoading(false);
       console.error(error);
     }
   };
   const getStarWarsCharacterById = async (characterId: string) => {
     setStarWarsPeople(null);
     setStarWarsCharacter(null);
+    setLoading(true);
     try {
       const response = await fetch(
-        `https://swapi.dev/api/people/${characterId}`
+        `https://swapi-nest.cyclic.cloud/api/people/${characterId}`
       );
+      setLoading(false);
       const payload = await response.json();
 
       if (payload && response.ok) {
@@ -52,6 +57,7 @@ const PeoplePage = () => {
         });
       }
     } catch (error: any) {
+      setLoading(false);
       setFormData({
         ...formData,
         characterIdError: 'Something went wrong. Please try again.',
@@ -157,12 +163,12 @@ const PeoplePage = () => {
             ''
             )}
         {(starWarsCharacter !== null) ? (
-            <Character starWarsCharacter={starWarsCharacter} />
+            <SWCharacter starWarsCharacter={starWarsCharacter} />
             ) : (
                 ''
 
         )}
-        {(starWarsCharacter == null && starWarsPeople == null) ? (
+        {(isLoading) ? (
             <LoadingScreen />
             ) : (
                 ''

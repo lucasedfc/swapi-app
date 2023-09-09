@@ -1,5 +1,11 @@
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
+## Demo
+
+[FrontEnd](swapi-app-client.vercel.app)
+[Backend Swagger](https://swapi-nest.cyclic.cloud/docs) 
+[Backend API](https://swapi-nest.cyclic.cloud/api) 
+
 ## Getting Started
 
 First, run the development server:

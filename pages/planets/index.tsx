@@ -55,7 +55,7 @@ export default function PlanetsPage() {
         setFormData({
           ...formData,
           planetTermError: 'Try another planet name or id.',
-          isplanetTermValid: true,
+          isplanetTermValid: false,
         });
       }
     } catch (error: any) {

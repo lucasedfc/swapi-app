@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
 import { Grid, Card, CardContent, CardMedia, Paper, Typography } from "@mui/material";
 import { getImageByEpisode } from "../People/utils";
 
 const StarWarsFilms = ({ starWarsFilms }: any) => {  
+    const [hoveredCard, setHoveredCard] = useState<number | null>(null);
     
     return (
         // render every character from starWarsPlanet
@@ -11,15 +12,18 @@ const StarWarsFilms = ({ starWarsFilms }: any) => {
             <Grid container spacing={2} marginTop={0}>
                 {starWarsFilms.map((film: any, index: number) => {
                     return (
-                        <Grid item xs={6} sm={4} md={4} lg={4} key={index}>
-                            <Card elevation={0}>
+                        <Grid item xs={12} sm={6} md={4} lg={4} key={index}>
+                            <Card  elevation={0}
+                                    className={hoveredCard === index ? 'cardZoom' : ""}
+                                    onMouseEnter={() => setHoveredCard(index)}
+                                    onMouseLeave={() => setHoveredCard(null)}>
                                 <CardMedia
                                     component="img"
-                                    height="300"
+                                    height="500"
                                     src={getImageByEpisode(film.episode_id).src}
                                     alt="Star Wars Banner" />
                                 <CardContent sx={{ padding: 0.5 }}>
-                                    <Typography variant="subtitle1" component="div" mt={1} sx={{ fontWeight: "bold" }}>{film.title}</Typography>
+                                    <Typography variant="subtitle1" component="div" mt={1} sx={{ fontWeight: "bold" }}>{film.title} ({film.episode_id})</Typography>
                                     <Typography variant="caption" component="div" mt={0.3}>{film.director}</Typography>
                                     <Typography variant="caption" component="div" mt={0.3}>{film.producer}</Typography>
                                     <Typography variant="caption" component="div" mt={0.3}>{film.release_date}</Typography>

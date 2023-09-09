@@ -7,9 +7,9 @@ import SWCharacter from '@/components/People/Character';
 
 const PeoplePage = () => {
   const [formData, setFormData] = useState({
-    characterIdValue: '',
-    characterIdError: '',
-    isCharacterIdValid: false,
+    characterTermValue: '',
+    characterTermError: '',
+    isCharacterTermValid: false,
   });
   const [starWarsCharacter, setStarWarsCharacter] = useState<any>(null);
   const [starWarsPeople, setStarWarsPeople] = useState(null);
@@ -36,13 +36,13 @@ const PeoplePage = () => {
       console.error(error);
     }
   };
-  const getStarWarsCharacterById = async (characterId: string) => {
+  const getStarWarsCharacterByTerm = async (term: string) => {
     setStarWarsPeople(null);
     setStarWarsCharacter(null);
     setLoading(true);
     try {
       const response = await fetch(
-        `https://swapi-nest.cyclic.cloud/api/people/${characterId}`
+        `https://swapi-nest.cyclic.cloud/api/people/${term}`
       );
       setLoading(false);
       const payload = await response.json();
@@ -52,36 +52,32 @@ const PeoplePage = () => {
       } else {
         setFormData({
           ...formData,
-          characterIdError: 'Something went wrong. Please try again.',
-          isCharacterIdValid: false,
+          characterTermError: 'Try another name or id',
+          isCharacterTermValid: false,
         });
       }
     } catch (error: any) {
       setLoading(false);
       setFormData({
         ...formData,
-        characterIdError: 'Something went wrong. Please try again.',
-        isCharacterIdValid: false,
+        characterTermError: 'Something went wrong. Please try again.',
+        isCharacterTermValid: false,
       });
     }
   };
 
   const validateFormData = () => {
-    return formData.isCharacterIdValid;
+    return formData.isCharacterTermValid;
   };
 
 
   const validate = (e: any) => {
-    const isNumberCorrect = RegExp(/^[1-9]\d*$/).test(e.target.value);
     if (e.target.value === '' || e.target.value === null) {
-      formData['characterIdError'] = 'Character id is required';
-      formData['isCharacterIdValid'] = false;
-    } else if (!isNumberCorrect) {
-      formData['characterIdError'] = 'Please enter a valid number';
-      formData['isCharacterIdValid'] = false;
+      formData['characterTermError'] = 'Character term is required';
+      formData['isCharacterTermValid'] = false;
     } else {
-      formData['characterIdError'] = '';
-      formData['isCharacterIdValid'] = true;
+      formData['characterTermError'] = '';
+      formData['isCharacterTermValid'] = true;
     }
   };
 
@@ -97,7 +93,7 @@ const PeoplePage = () => {
     e.preventDefault();
     if (validateFormData()) {
       setStarWarsCharacter(null);
-      getStarWarsCharacterById(formData.characterIdValue);
+      getStarWarsCharacterByTerm(formData.characterTermValue);
     }
   };
 
@@ -118,14 +114,14 @@ const PeoplePage = () => {
             <Grid item xs={6} sm={6} md={6} lg={6}>
               <TextField
                 type='text'
-                id='characterIdValue'
-                name='characterIdValue'
-                label='Character Id'
+                id='characterTermValue'
+                name='characterTermValue'
+                label='Search by name or id'
                 variant='outlined'
                 autoComplete='off'
-                value={formData.characterIdValue}
-                error={!formData.isCharacterIdValid}
-                helperText={formData.characterIdError}
+                value={formData.characterTermValue}
+                error={!formData.isCharacterTermValid}
+                helperText={formData.characterTermError}
                 onChange={onChange}
                 margin='normal'
                 fullWidth

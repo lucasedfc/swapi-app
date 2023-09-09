@@ -9,9 +9,9 @@ import StarshipDetail from '@/components/Starships/StarshipDetail';
 export default function StarshipPage() {
 
   const [formData, setFormData] = useState({
-    starShipIdValue: '',
+    starShipTermValue: '',
     starShipError: '',
-    isStarshipIdValid: false,
+    isStarshipTermValid: false,
   });
   const [starWarsStarship, setStarWarsStarship] = useState<any>(null);
   const [starWarsStarships, setStarWarsStarships] = useState(null);
@@ -38,25 +38,24 @@ export default function StarshipPage() {
       console.error(error);
     }
   };
-  const getStarWarsStarshipById = async (starshipId: string) => {
+  const getStarWarsStarshipByTerm = async (term: string) => {
     setStarWarsStarships(null);
     setStarWarsStarship(null);
     setLoading(true);
     try {
       const response = await fetch(
-        `https://swapi-nest.cyclic.cloud/api/starships/${starshipId}`
+        `https://swapi-nest.cyclic.cloud/api/starships/${term}`
       );
       const payload = await response.json();
       setLoading(false);
 
-      setStarWarsStarship(payload);
       if (payload && response.ok) {
         setStarWarsStarship(payload);
       } else {
         setFormData({
           ...formData,
-          starShipError: 'Something went wrong. Please try again.',
-          isStarshipIdValid: false,
+          starShipError: 'Try another name or model',
+          isStarshipTermValid: false,
         });
       }
     } catch (error: any) {
@@ -64,26 +63,22 @@ export default function StarshipPage() {
       setFormData({
         ...formData,
         starShipError: 'Something went wrong. Please try again.',
-        isStarshipIdValid: false,
+        isStarshipTermValid: false,
       });
     }
   };
 
   const validateFormData = () => {
-    return formData.isStarshipIdValid;
+    return formData.isStarshipTermValid;
   };
 
   const validate = (e: any) => {
-    const isNumberCorrect = RegExp(/^[1-9]\d*$/).test(e.target.value);
     if (e.target.value === '' || e.target.value === null) {
-      formData['starShipError'] = 'star ship id is required';
-      formData['isStarshipIdValid'] = false;
-    } else if (!isNumberCorrect) {
-      formData['starShipError'] = 'Please enter a valid number';
-      formData['isStarshipIdValid'] = false;
+      formData['starShipError'] = 'star ship name or model required';
+      formData['isStarshipTermValid'] = false;
     } else {
       formData['starShipError'] = '';
-      formData['isStarshipIdValid'] = true;
+      formData['isStarshipTermValid'] = true;
     }
   };
 
@@ -100,7 +95,7 @@ export default function StarshipPage() {
     if (validateFormData()) {
       setStarWarsStarship(null);
       setStarWarsStarships(null);
-      getStarWarsStarshipById(formData.starShipIdValue);
+      getStarWarsStarshipByTerm(formData.starShipTermValue);
     }
   };
 
@@ -121,13 +116,13 @@ export default function StarshipPage() {
             <Grid item xs={6} sm={6} md={6} lg={6}>
               <TextField
                 type='text'
-                id='starShipIdValue'
-                name='starShipIdValue'
-                label='Starship Id'
+                id='starShipTermValue'
+                name='starShipTermValue'
+                label='Starship name or id'
                 variant='outlined'
                 autoComplete='off'
-                value={formData.starShipIdValue}
-                error={!formData.isStarshipIdValid}
+                value={formData.starShipTermValue}
+                error={!formData.isStarshipTermValid}
                 helperText={formData.starShipError}
                 onChange={onChange}
                 margin='normal'

@@ -9,9 +9,9 @@ import FilmDetail from '@/components/Films/FilmDetail';
 export default function FilmsPage() {
 
   const [formData, setFormData] = useState({
-    filmIdValue: '',
+    filmTermValue: '',
     filmError: '',
-    isFilmIdValid: false,
+    isFilmTermValid: false,
   });
   const [starWarsFilm, setStarWarsFilm] = useState<any>(null);
   const [starWarsFilms, setStarWarsFilms] = useState(null);
@@ -38,13 +38,13 @@ export default function FilmsPage() {
       console.error(error);
     }
   };
-  const getStarWarsFilmById = async (filmId: string) => {
+  const getStarWarsFilmByTerm = async (term: string) => {
     setStarWarsFilms(null);
     setStarWarsFilm(null);
     setLoading(true);
     try {
       const response = await fetch(
-        `https://swapi-nest.cyclic.cloud/api/films/${filmId}`
+        `https://swapi-nest.cyclic.cloud/api/films/${term}`
       );
       const payload = await response.json();
       setLoading(false);
@@ -54,8 +54,8 @@ export default function FilmsPage() {
       } else {
         setFormData({
           ...formData,
-          filmError: 'Something went wrong. Please try again.',
-          isFilmIdValid: false,
+          filmError: 'Try another name or episode id.',
+          isFilmTermValid: false,
         });
       }
     } catch (error: any) {
@@ -63,26 +63,22 @@ export default function FilmsPage() {
       setFormData({
         ...formData,
         filmError: 'Something went wrong. Please try again.',
-        isFilmIdValid: false,
+        isFilmTermValid: false,
       });
     }
   };
 
   const validateFormData = () => {
-    return formData.isFilmIdValid;
+    return formData.isFilmTermValid;
   };
 
   const validate = (e: any) => {
-    const isNumberCorrect = RegExp(/^[1-9]\d*$/).test(e.target.value);
     if (e.target.value === '' || e.target.value === null) {
-      formData['filmError'] = 'film id is required';
-      formData['isFilmIdValid'] = false;
-    } else if (!isNumberCorrect) {
-      formData['filmError'] = 'Please enter a valid number';
-      formData['isFilmIdValid'] = false;
+      formData['filmError'] = 'film term is required';
+      formData['isFilmTermValid'] = false;
     } else {
       formData['filmError'] = '';
-      formData['isFilmIdValid'] = true;
+      formData['isFilmTermValid'] = true;
     }
   };
 
@@ -99,7 +95,7 @@ export default function FilmsPage() {
     if (validateFormData()) {
       setStarWarsFilm(null);
       setStarWarsFilms(null);
-      getStarWarsFilmById(formData.filmIdValue);
+      getStarWarsFilmByTerm(formData.filmTermValue);
     }
   };
 
@@ -120,13 +116,13 @@ export default function FilmsPage() {
             <Grid item xs={6} sm={6} md={6} lg={6}>
               <TextField
                 type='text'
-                id='filmIdValue'
-                name='filmIdValue'
-                label='film Id'
+                id='filmTermValue'
+                name='filmTermValue'
+                label='Search by name or episode' 
                 variant='outlined'
                 autoComplete='off'
-                value={formData.filmIdValue}
-                error={!formData.isFilmIdValid}
+                value={formData.filmTermValue}
+                error={!formData.isFilmTermValid}
                 helperText={formData.filmError}
                 onChange={onChange}
                 margin='normal'

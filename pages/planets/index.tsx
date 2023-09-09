@@ -9,9 +9,9 @@ import PlanetDetail from '@/components/Planets/PlanetDetail';
 export default function PlanetsPage() {
 
   const [formData, setFormData] = useState({
-    planetIdValue: '',
-    planetIdError: '',
-    isplanetIdValid: false,
+    planetTermValue: '',
+    planetTermError: '',
+    isplanetTermValid: false,
   });
   const [starWarsPlanet, setStarWarsPlanet] = useState<any>(null);
   const [starWarsPlanets, setStarWarsPlanets] = useState(null);
@@ -27,63 +27,58 @@ export default function PlanetsPage() {
       );
       setLoading(false);
       const payload = await response.json();
-
+      
       if (payload && response.ok) {
         setStarWarsPlanets(payload.results);
-        
-        
       }
     } catch (error: any) {
       setLoading(false);
       console.error(error);
     }
   };
-  const getStarWarsplanetById = async (planetId: string) => {
+  const getStarWarsplanetByTerm = async (term: string) => {
+    console.log(term);
+    
     setStarWarsPlanets(null);
     setStarWarsPlanet(null);
     setLoading(true);
     try {
       const response = await fetch(
-        `https://swapi-nest.cyclic.cloud/api/planets/${planetId}`
+        `https://swapi-nest.cyclic.cloud/api/planets/${term}`
       );
       const payload = await response.json();
-      setLoading(false);
+      setLoading(false);     
 
-      setStarWarsPlanet(payload);
       if (payload && response.ok) {
         setStarWarsPlanet(payload);
       } else {
         setFormData({
           ...formData,
-          planetIdError: 'Something went wrong. Please try again.',
-          isplanetIdValid: false,
+          planetTermError: 'Try another planet name or id.',
+          isplanetTermValid: true,
         });
       }
     } catch (error: any) {
       setLoading(false);
       setFormData({
         ...formData,
-        planetIdError: 'Something went wrong. Please try again.',
-        isplanetIdValid: false,
+        planetTermError: 'Something went wrong. Please try again.',
+        isplanetTermValid: false,
       });
     }
   };
 
   const validateFormData = () => {
-    return formData.isplanetIdValid;
+    return formData.isplanetTermValid;
   };
 
   const validate = (e: any) => {
-    const isNumberCorrect = RegExp(/^[1-9]\d*$/).test(e.target.value);
     if (e.target.value === '' || e.target.value === null) {
-      formData['planetIdError'] = 'planet id is required';
-      formData['isplanetIdValid'] = false;
-    } else if (!isNumberCorrect) {
-      formData['planetIdError'] = 'Please enter a valid number';
-      formData['isplanetIdValid'] = false;
+      formData['planetTermError'] = 'planet term is required';
+      formData['isplanetTermValid'] = false;
     } else {
-      formData['planetIdError'] = '';
-      formData['isplanetIdValid'] = true;
+      formData['planetTermError'] = '';
+      formData['isplanetTermValid'] = true;
     }
   };
 
@@ -100,7 +95,7 @@ export default function PlanetsPage() {
     if (validateFormData()) {
       setStarWarsPlanet(null);
       setStarWarsPlanets(null);
-      getStarWarsplanetById(formData.planetIdValue);
+      getStarWarsplanetByTerm(formData.planetTermValue);
     }
   };
 
@@ -121,14 +116,14 @@ export default function PlanetsPage() {
             <Grid item xs={6} sm={6} md={6} lg={6}>
               <TextField
                 type='text'
-                id='planetIdValue'
-                name='planetIdValue'
-                label='Planet Id'
+                id='planetTermValue'
+                name='planetTermValue'
+                label='Search by name or id'
                 variant='outlined'
                 autoComplete='off'
-                value={formData.planetIdValue}
-                error={!formData.isplanetIdValid}
-                helperText={formData.planetIdError}
+                value={formData.planetTermValue}
+                error={!formData.isplanetTermValid}
+                helperText={formData.planetTermError}
                 onChange={onChange}
                 margin='normal'
                 fullWidth
